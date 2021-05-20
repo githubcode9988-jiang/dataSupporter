@@ -1,0 +1,133 @@
+body {
+  background: #373b44; /* fallback for old browsers */
+  background: linear-gradient(
+    to bottom,
+    #00006b,
+    #1f1f5f,
+    #561a8b,
+    #7138eb,
+    #9d349d,
+    #4f7cdf
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  font-family: '微软雅黑';
+  overflow: scroll;
+}
+.navbar-fixed-top{
+	width: 100%;
+	position: relative;
+	margin: 0 auto;
+	/* background: linear-gradient(
+	  to bottom,
+	  #5c8273,
+	  #0d00a2
+	); */
+	border-bottom: #00CC00;
+}
+#main {
+  margin: 50px auto;
+}
+.search_content {
+  position: absolute;
+  top: 60px;
+}
+input {
+  width: 100px;
+  height: 50px;
+}
+button {
+  width: 100px;
+  height: 30px;
+}
+.page-position {
+  width: 70%;
+  height: 200px;
+  margin: 100px auto;
+}
+#site-top-where {
+  font-size: 30px;
+  color: #ffffff;
+}
+.site-temp {
+  color: #ffffff;
+  width: 40%;
+  float: left;
+}
+.top-time {
+  width: 40%;
+  height: 20%;
+  float: left;
+}
+.specific-info {
+  width: 80%;
+  position: absolute;
+  margin-top: 80px;
+}
+#specific-temp {
+  font-size: 50px;
+  color: #ffffff;
+}
+.specific-info {
+  width: 100%;
+  color: #ffffff;
+}
+#top-right-time {
+  color: #ffffff;
+}
+.top-right {
+  display: inline-block;
+  margin-left: 150px;
+  margin-top: 10px;
+}
+.specific-weather {
+  width: 80%;
+}
+#specific-wd {
+  margin-right: 20px;
+  width: 60px;
+}
+#specific-ws {
+  margin-right: 20px;
+  width: 30px;
+}
+.search_content .container {
+  height: 70px;
+  width: 600px;
+  margin: 0 auto;
+}
+.parent {
+  position: relative;
+}
+.search {
+  width: 300px;
+  height: 40px;
+  border-radius: 18px;
+  outline: none;
+  border: 1px solid #ccc;
+  padding-left: 10px;
+  position: absolute;
+}
+.btn {
+  height: 35px;
+  width: 35px;
+  position: absolute;
+  background: url('../images/bluesearch.png') no-repeat center center/cover;
+  top: 6px;
+  left: 260px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+canvas {
+  position: fixed;
+  right: 0px;
+  bottom: 0px;
+  min-width: 100%;
+  min-height: 100%;
+  height: auto;
+  width: auto;
+  z-index: -1;
+}
+.daum_a{
+	display: block;
+	border-radius: 10px;
+}

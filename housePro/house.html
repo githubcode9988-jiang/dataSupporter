@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>租房信息</title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/house.css">
+    <link rel="stylesheet" href="../css/echarts-house.css">
+    <link rel="stylesheet" href="../css/bootstrap-select.min.css">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar_ul">
+                    	<li><a class="daum_a" href="../index.html#" onmouseover="change_background_color(this)" onmouseout="normal_background_color(this)">返回<span class="sr-only">(current)</span></a>
+                    	</li>
+                    	<!-- <li class="dropdown">
+                    		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                    			aria-haspopup="true" aria-expanded="false">Link <span class="caret"></span></a>
+                    		<ul class="dropdown-menu" id="daum-nav">
+                    			<li><a href="/Instance/weatherPro/weather.html">天气</a></li>
+                    			<li><a href="/Instance/roadPro/road.html">路况</a></li>
+                    			<li><a href="/Instance/housePro/house.html">租房</a></li>
+                    		</ul>
+                    	</li> -->
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="eacharts">
+        <section class="echarts-header">
+            <h1>北京居住租房数据展示</h1>
+            <div class="show-time"></div>
+        </section>
+        <section class="main-box">
+            <div class="column">
+                <div class="panel bar-l">
+                    <h2>各区域每平米价格</h2>
+                    <div class="chart"></div>
+                    <div class="panel-footer"></div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="map">
+                    <div class="map1"></div>
+                    <div class="map2"></div>
+                    <div class="map3"></div>
+                    <div class="chart"></div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="panel pie-r box_bar2">
+                    <!-- <h3>各区域租房数量比例</h3> -->
+                    <div class="chart box_char2"></div>
+                    <div class="panel-footer"></div>
+                </div>
+				<div class="panel pie-r2 box_bar2">
+				    <!-- <h3>各区域租房数量比例</h3> -->
+				    <div class="chart2 box_char2"></div>
+				    <div class="panel-footer"></div>
+				</div>
+            </div>
+			    
+        </section>
+		
+    </main>
+
+    <main class="main-house">
+        <div class="select-house">
+            <ul class="s-box">
+                <li>
+                    <strong class="title">找房方式</strong>
+                    <div class="btn-group">
+                        <select selectFlag="locate" class="selectpicker show-tick" title="请选择区域">
+                            <option>朝阳</option>
+                            <option>海淀</option>
+                            <option>丰台</option>
+                            <option>西城</option>
+                            <option>昌平</option>
+                            <option>通州</option>
+                            <option>东城</option>
+                            <option>顺义</option>
+                            <option>大兴</option>
+                            <option>石景山</option>
+                            <option>房山</option>
+                            <option>门头沟</option>
+                        </select>
+                    </div>
+                    <div class="btn-group">
+                        <select selectFlag="subway" class="selectpicker show-tick" title="请选择通勤方式">
+                            <option>有地铁</option>
+                            <option>无地铁</option>
+                        </select>
+                    </div>
+                    <div class="btn-group">
+                        <select selectFlag="orientation" class="selectpicker show-tick" title="请选择朝向">
+                            <option>朝南</option>
+                            <option>朝东</option>
+                            <option>朝西</option>
+                            <option>朝北</option>
+                            <option>南北</option>
+                            <option>东南</option>
+                            <option>西北</option>
+                            <option>东西</option>
+                        </select>
+                    </div>
+                </li>
+                <li>
+                    <strong class="title">类型</strong>
+                    <select selectFlag="homestyle" class="selectpicker show-tick" title="请选择租房类型">
+                        <option>整租</option>
+                        <option>合租</option>
+                    </select>
+                </li>
+                <li>
+                    <strong class="title">租金</strong>
+                    <select selectFlag="price" class="selectpicker show-tick" title="请选择租房范围">
+                        <option>500-1500元</option>
+                        <option>1500-2500元</option>
+                        <option>2500-4000元</option>
+                        <option>4000-6000元</option>
+                        <option>6000-8000元</option>
+                        <option>8000-10000元</option>
+                        <option>10000-20000元</option>
+                    </select>
+                </li>
+            </ul>
+            <div class="search-house">
+                <button class="btn btn-default" id="search-house" type="button">开始找房</button>
+            </div>
+        </div>
+        <div class="sort-house">
+            <span class="active" sortFlag="default">默认排序</span>
+            <span sortFlag="price">价格<i class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></i></span>
+            <span sortFlag="area">面积<i class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></i></span>
+        </div>
+        <div class="pic-house"></div>
+    </main>
+	
+    <nav aria-label="Page navigation" class="navPage"></nav>
+    
+	<footer>
+    </footer>
+</body>
+<script src="../js/jquery-3.4.1.min.js"></script>
+<script src="../js/bootstrap.min.js" rel="stylesheet"></script>
+<script src="../js/echarts.min.js"></script>
+<script src="../js/bootstrap-select.js"></script>
+<script src="../map/js/province/beijing.js"></script>
+<script src="../js/echarts-house.js"></script>
+<script src="../js/house.js"></script>
+
+</html>

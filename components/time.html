@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>time</title>
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+</body>
+
+</html>
+<script>
+    let canvas = document.querySelector("#canvas");
+    let ctx = canvas.getContext("2d");
+    let x = 300,
+        y = 300;
+    canvas.width = x;
+    canvas.height = y;
+    let color = "darkgrey"
+    class renderClock {
+        constructor({
+            count,
+            start,
+            end,
+            width,
+            color,
+            time,
+            radius
+        }) {
+            this.count = count || null;
+            this.start = start || null;
+            this.end = end || null;
+            this.width = width || null;
+            this.color = color || "#333";
+            this.time = time || null;
+            this.radius = radius || null;
+            this.time = time;
+            this.time ? (this.t = this.handleData()) : null;
+            this.count ?
+                this.drawLine() :
+                this.time ?
+                this.drawTime() :
+                this.drawCircle();
+        }
+        drawLine() {
+            let i = 0;
+            for (; i < this.count; i++) {
+                ctx.beginPath();
+                ctx.rotate((2 * Math.PI) / this.count);
+                ctx.moveTo(this.start, 0);
+                ctx.lineTo(this.end, 0);
+                ctx.lineWidth = this.width;
+                ctx.strokeStyle = this.color;
+                ctx.stroke();
+                ctx.closePath();
+            }
+        }
+        drawTime() {
+            let i = 0;
+            let c = 2 * Math.PI;
+            // 处理时分秒针
+            let arr = [
+                (c / 60) * this.t.sec,
+                (c / 60) * this.t.min + (c / 60 / 60) * this.t.sec,
+                (c / 12) * this.t.oHour +
+                (c / 12 / 60) * this.t.min +
+                (c / 12 / 60 / 60) * this.t.sec,
+            ];
+            let z = (str) => {
+                return str = String(str).length < 2 ? `0${str}` : str;
+            }
+            ctx.save();
+            ctx.font = "20px Verdana";
+            ctx.fillStyle = color;
+            ctx.rotate(Math.PI / 2);
+            ctx.fillText(`${z(this.t.hour)}:${z(this.t.min)}:${z(this.t.sec)}`, -x / 7, y / 3);
+            ctx.restore();
+            for (; i < this.time.length; i++) {
+                ctx.save();
+                ctx.beginPath();
+                ctx.rotate(arr[i]);
+                ctx.moveTo(this.start[i], 0);
+                ctx.lineTo(this.end[i], 0);
+                ctx.lineWidth = this.width[i];
+                ctx.strokeStyle = this.color[i];
+                ctx.stroke();
+                ctx.closePath();
+                ctx.restore();
+            }
+        }
+        drawCircle() {
+            ctx.beginPath();
+            ctx.arc(0, 0, this.radius, 0, 2 * Math.PI);
+            if (this.width) {
+                ctx.strokeStyle = this.color;
+                ctx.lineWidth = this.width;
+                ctx.stroke();
+            } else {
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+            ctx.closePath();
+        }
+        handleData() {
+            let time = new Date();
+            let min = time.getMinutes();
+            let sec = time.getSeconds();
+            let hour = time.getHours();
+            let oHour = hour > 12 ? hour - 12 : hour;
+            return {
+                min,
+                sec,
+                hour,
+                oHour
+            };
+        }
+    }
+
+    function render() {
+        // 清除之前的画布
+        ctx.clearRect(0, 0, x, y);
+        // 记录初始状态
+        ctx.save();
+        // 移动表盘到中心
+        ctx.translate(x / 2, y / 2);
+        ctx.rotate(-Math.PI / 2);
+        // 绘制表盘
+        new renderClock({
+            radius: x / 4,
+            width: x / 80,
+            color: color,
+        });
+        // 绘制分针刻度线
+        new renderClock({
+            count: 60,
+            start: x * 19 / 80,
+            end: x * 18 / 80,
+            width: x / 160,
+            color: color,
+        });
+        // 绘制时针刻度线
+        new renderClock({
+            count: 12,
+            start: x * 18 / 80,
+            end: x * 20 / 80,
+            width: x / 80,
+            color: color,
+        });
+        // 绘制秒针
+        new renderClock({
+            start: [-x * 3 / 80, -x * 2 / 80, -x / 80],
+            end: [x * 17 / 80, x * 15 / 80, x * 13 / 80],
+            width: [x / 400, x / 200, x / 100],
+            color: ["red", color, color],
+            time: [0, 1, 2],
+        });
+        // 绘制表圈
+        new renderClock({
+            radius: x / 80,
+            color: color,
+        });
+        ctx.restore();
+    }
+
+    setInterval(() => {
+        render();
+    }, 1000);
+</script>

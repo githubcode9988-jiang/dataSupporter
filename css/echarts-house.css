@@ -1,0 +1,194 @@
+.eacharts {
+  background: url(../images/house-bg.jpg) no-repeat top center/cover;
+  min-width: 1280px;
+  margin-bottom: 100px;
+}
+.echarts-header {
+  position: relative;
+  height: 100px;
+  background: url(../images/house-header.png) no-repeat center center/cover;
+}
+.echarts-header h1 {
+  font-size: 40px;
+  color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  line-height: 80px;
+}
+.echarts-header .show-time {
+  position: absolute;
+  top: 0;
+  right: 40px;
+  line-height: 80px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 18px;
+}
+.main-box {
+  min-width: 1280px;
+  padding: 10px 10px 0;
+  box-sizing: border-box;
+  display: flex;
+}
+.main-box .column {
+  flex: 3;
+}
+.main-box .column:nth-child(2) {
+  flex: 5;
+  margin: 0 10px 15px;
+  overflow: hidden;
+}
+.main-box .panel {
+  position: relative;
+  height: 500px;
+  width: 500px;
+  background: url(../images/house-line.png) rgba(255, 255, 255, 0.05);
+  padding: 0 10px 30px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+}
+.main-box .panel .chart {
+  height: 400px;
+}
+
+/* 租房数量比例 */
+.main-box .box_bar2 .box_char2{
+	height: 330px;
+}
+.main-box .pie-r{
+	margin-left: 300px;
+	height: 350px;
+}
+
+.main-box .pie-r2{
+	margin-left: 300px;
+	height: 350px;
+}
+
+/* 租房形式比例 */
+/* .main-box .box_bar3 .box_char3{
+	height: 330px;
+}
+.main-box .pie-r3{
+	margin-top: 400px;
+	margin-right: 300px;
+	height: 350px;
+} */
+
+
+.main-box .panel::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  border-left: 2px solid #02a6b5;
+  border-top: 2px solid #02a6b5;
+  content: '';
+}
+.main-box .panel::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20px;
+  height: 20px;
+  border-right: 2px solid #02a6b5;
+  border-top: 2px solid #02a6b5;
+  content: '';
+}
+.main-box .panel .panel-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: transparent;
+  border: none;
+}
+.main-box .panel .panel-footer::before {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  border-left: 2px solid #02a6b5;
+  border-bottom: 2px solid #02a6b5;
+  content: '';
+}
+.main-box .panel .panel-footer::after {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 20px;
+  height: 20px;
+  border-right: 2px solid #02a6b5;
+  border-bottom: 2px solid #02a6b5;
+  content: '';
+}
+.main-box .panel h2 {
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  color: #fff;
+  font-size: 22px;
+  font-weight: 400;
+}
+.map {
+  position: relative;
+  height: 800px;
+}
+.map .map1 {
+  width: 520px;
+  height: 520px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: url(../images/house_map.png);
+  background-size: 100% 100%;
+  opacity: 0.3;
+}
+.map .map2 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 640px;
+  height: 640px;
+  background: url(../images/house_divergency.png);
+  background-size: 100% 100%;
+  animation: rotate1 15s linear infinite;
+  opacity: 0.6;
+}
+.map .map3 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 760px;
+  height: 760px;
+  background: url(../images/house_circle.png);
+  background-size: 100% 100%;
+  animation: rotate2 15s linear infinite;
+}
+.map .chart {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 800px;
+  width: 100%;
+}
+@keyframes rotate1 {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+@keyframes rotate2 {
+  from {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+}
+

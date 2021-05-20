@@ -1,0 +1,155 @@
+body{
+	background: whitesmoke;
+}
+.navbar-fixed-top {
+  width: 100%;
+  position: relative;
+  margin: 0 auto;
+  background-color: #f0f0f0;
+  border-bottom: #00CC00;
+}
+.bjimg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -10;
+  object-fit: cover;
+}
+.daum-thumbnail img {
+  width: 300px;
+  height: 200px;
+}
+
+.daum-threeC {
+  margin-top: 50px;
+}
+
+.daum-carousel {
+  margin: 0 auto;
+  width: 1280px;
+}
+
+.daum-carousel,.daum-carousel .item {
+  width: 100%;
+  height: 420px;
+  overflow: hidden;
+}
+
+.carousel-caption {
+  bottom: 10%;
+}
+.navbar_position{
+	margin: 0 auto;
+}
+.navbar_ul{
+	margin-left: 430px ;
+}
+.header_top{
+	font: black;
+}
+.daum_img{
+	border-radius: 15px;
+}
+.duam_button{
+	display: block;
+	margin-top: 20px;
+}
+.bottom_line{
+	border: #949494 solid 1px;
+}
+.daum-hr{
+	margin-top: 50px;
+}
+.banner2{
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.banner2:before{
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 400px;
+    z-index: 1;
+    background: linear-gradient(to top,#111,transparent);
+}
+
+.banner2:after{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 400px;
+    z-index: 1;
+    background: linear-gradient(to bottom,#111,transparent);
+}
+
+.destination{
+    text-align: center;
+}
+
+.destination .content{
+    text-align: center;
+}
+
+.destination .destinationList{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+.destination .destinationList .box{
+    position: relative;
+    min-width: 320px;
+    height: 480px;
+    background: #191919;
+    transition: .5s;
+    margin: 10px;
+}
+
+.destination .destinationList:hover .box{
+    opacity: 0.2;
+}
+
+.destination .destinationList .box:hover{
+    opacity: 1;
+}
+
+.destination .destinationList .box .imgBx{
+    position: relative;
+    width: 100%;
+    height: 400px;
+}
+
+.destination .destinationList .box .content{
+    width: 100%;
+    height: 80px;
+    justify-content: center;
+    align-items: center;
+}
+
+.destination .destinationList .box .content h2{
+    color: #fff;
+    font-weight: 500;
+    line-height: 1.2em;
+}
+.destination .destinationList .box .content h2 span{
+    font-size: 0.8em;
+    font-weight: 300;
+    opacity: 0.5;
+}
+
+
+

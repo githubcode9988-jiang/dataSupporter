@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+		       /*黑色半圆是图片，上下箭头也是图片*/
+		     .footer_btn{text-align:center;line-height:47px;} 
+		     @keyframes bounce-down {
+		      25% {transform: translateY(-3px);}
+		      50%{transform: translateY(0);}
+		      75% {transform: translateY(3px);}
+		      100% {transform: translateY(0);}
+		     }
+		     .animate-bounce-down{ -webkit-animation: bounce-down 1s linear infinite;animation: bounce-down 1s linear infinite;
+		     }
+		     
+		     @keyframes bounce-down1 {
+		      25% {transform: translateY(-3px);}
+		      50%, 100% {transform: translateY(0);}
+		      75% {transform: translateY(3px);}
+		     }
+		     .animate-bounce-down1{display:none;-webkit-animation: bounce-down 1s linear infinite;animation: bounce-down 1s linear infinite;
+		     }    
+		 </style>
+	</head>
+	<body>
+		<div class="footer_btn"><img src="../images/arrow4.png" alt="" class="animate-bounce-down" /></div>
+		<script>
+		     var flag=true;
+		     $(".footerBox").click(function(){
+		     
+		         if(flag == true){;
+		             $(".animate-bounce-down1").css("display","inline-block");
+		             $(".animate-bounce-down").css("display","none");
+		             flag=false;
+		         }else{
+		             $(".animate-bounce-down").css("display","inline-block");
+		             $(".animate-bounce-down1").css("display","none");
+		             flag=true;
+		         }
+		         $(this).find(".footer_content").stop().slideToggle(500);
+		     });
+		  </script>
+	</body>
+</html>

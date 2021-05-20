@@ -1,0 +1,22 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+header {
+  height: 30px;
+  margin-bottom: 30px;
+  min-width: 1280px;
+}
+footer {
+  height: 50px;
+  line-height: 50px;
+  min-width: 1280px;
+  text-align: center;
+}
+ul,
+ol {
+  list-style: none;
+}
+img {
+  width: 100%;
+}

@@ -1,0 +1,143 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins",
+    sans-serif;
+    scroll-behavior: smooth;
+}
+
+body{
+    background: #f7f7f7;
+}
+
+section{
+    position: relative;
+    padding: 100px;
+}
+
+.header{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000000;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.header .logo{
+    color: #2b2b2b;
+    text-decoration: none;
+    font-size: 1.2rem;
+	margin: 0 auto;
+}
+
+.header .logo2{
+    color: #0d0d0d;
+    text-decoration: none;
+    font-size: 1.2rem;
+	margin-right: 20px;
+}
+
+.header .toggle img{
+    max-width: 40px;
+    cursor: pointer;
+}
+
+.footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.footer .sci{
+    position: relative;
+    display: flex;
+}
+
+.footer .sci li{
+    list-style: none;
+}
+
+.footer .sci li a{
+    text-decoration: none;
+    margin: 0 20px;
+}
+
+.footer .sci li a img{
+    filter: invert(1);
+    max-width: 40px;
+}
+
+.copyrightText{
+    margin-top: 20px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 300;
+    color: #666;
+    text-align: center;
+}
+
+.copyrightText a{
+    color: #fff;
+    text-decoration: none;
+}
+
+@media (max-width: 767px){
+    section{
+        padding: 40px;
+    }
+
+    .banner .content h2{
+        font-size: 2.5em;
+    }
+
+    .banner .content p{
+        font-size: 1em;
+    }
+
+    .about{
+        flex-direction: column;
+    }
+
+    .about .contentBx,
+    .about .imgBx{
+        min-width: 100%;
+        width: 100%:
+        text-align: center;
+        padding-right: 0px;
+    }
+
+    .about .imgBx{
+        min-height: 350px;
+    }
+
+    .btn{
+        margin-bottom: 30px;
+    }
+
+    .decoration .destinationList .box{
+        position: relative;
+        max-width: 350px;
+        min-width: initial;
+        width: 350px;
+        height: 400px;
+        background: #191919;
+        transition: 0.5s;
+    }
+
+    .decoration .destinationList .box .img{
+        height: 320px;
+    }
+
+    .footer .sci li a img{
+        filter: invert(1);
+        max-width: 30px;
+    }
+
+}
+

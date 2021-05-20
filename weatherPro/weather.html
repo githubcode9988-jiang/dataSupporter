@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>天气</title>
+	<link rel="stylesheet" href="../css/common.css">
+	<link rel="stylesheet" href="../css/bootstrap.min.css" />
+	<link rel="stylesheet" href="../css/weather.css" />
+</head>
+
+<body>
+	<header>
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container">
+				<div class="collapse navbar-collapse " id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav navbar_ul">
+						<li><a class="daum_a" href="../index.html#" onmouseover="change_background_color(this)" onmouseout="normal_background_color(this)">返回<span class="sr-only">(current)</span></a>
+						</li>
+						<!-- <li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+								aria-haspopup="true" aria-expanded="false">Link <span class="caret"></span></a>
+							<ul class="dropdown-menu" id="daum-nav">
+								<li><a href="/Instance/weatherPro/weather.html">天气</a></li>
+								<li><a href="/Instance/roadPro/road.html">路况</a></li>
+								<li><a href="/Instance/housePro/house.html">租房</a></li>
+							</ul>
+						</li> -->
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<div class="page-header page-position">
+		<!-- 地点 温度 -->
+		<div class='site-temp'>
+			<span id="site-top-where"></span>
+			<span id="site-top-date"></span>
+			<span id="site-top-wd"></span>
+			<span id="site-top-ws"></span>
+		</div>
+		<!-- 时间 -->
+		<div class='top-time'>
+			<p class='top-right' id="top-right-time"></p>
+			<p class='top-right' id="top-right-week"></p>
+		</div>
+
+		<!-- 具体信息 -->
+		<div class="specific-info">
+			<span id='specific-temp'></span>
+			<div class="specific-weather">
+				<br />
+				<span id="specific-wd"></span>
+				<span id="specific-ws"></span>
+
+				<span id="specific-cloud"></span>
+			</div>
+		</div>
+	</div>
+
+	<div id="main" class="seven_temp" style="width: 1000px; height: 400px">
+	</div>
+	<div class="search_content">
+		<div class="container">
+			<form action="" class="parent">
+				<input type="text" class="city search" placeholder="搜索城市">
+				<input type="button" class="submit btn">
+			</form>
+		</div>
+	</div>
+
+	<!-- 错误提示 -->
+	<p id='error'></p>
+
+
+</body>
+<script src="../js/echarts.min.js"></script>
+<script src="../js/jquery-3.4.1.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/snow.js"></script>
+<script type="text/javascript">
+	var chartDom = document.getElementById('main');
+	var myChart = echarts.init(chartDom);
+
+
+	//调用背景控制方法
+	var snow = new snowFall({
+		maxFlake: 60
+	});
+	snow.start();
+
+
+	var keys = new Array()
+	var max_hot = new Array()
+	var lowest_hot = new Array()
+
+	// 赋值中文星期
+	function getChineseWeek(date) {
+		var weekName = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六");
+		return weekName[date];
+	}
+
+
+
+	let days = []
+	let max_hots = []
+	let lowests_hot = []
+
+
+	$(document).ready(function () {
+		// 在这里写你的代码...
+		var city = '北京'
+		$.ajax({
+			url: "http://localhost:5000/weather",
+			data: {
+				city,
+				city
+			},
+			dataType: 'json',
+			type: "GET",
+			success: function (data) {
+
+				for (var it in data) {
+					keys.push(it)
+				}
+				for (var it in data) {
+					var temp = data[it]
+					var top = temp.split(',')[0]
+					var bottom = temp.split(',')[1]
+					var reg = RegExp(/℃/)
+					if (temp.match(reg) != null) {
+						if (top.length > 2) {
+							max_hot.push(top.slice(0, 2))
+						} else {
+							max_hot.push(top.slice(0, 1))
+						}
+						lowest_hot.push(bottom)
+					} else {
+						max_hot.push(top)
+						lowest_hot.push(bottom)
+					}
+				}
+				days = keys
+				max_hots = max_hot
+				lowests_hot = lowest_hot
+				seven_temp()
+			}
+		})
+
+		$.ajax({
+			url: "http://localhost:5000/s_weather",
+			data: {
+				city,
+				city
+			},
+			dataType: 'json',
+			type: "GET",
+			success: function (data) {
+				if (data == null) {
+					alert("查询城市不存在!")
+				}
+				s_partinfo = data.split("};var alarm")[0]
+				s_lastinfo = s_partinfo.split('"weatherinfo":')[1]
+
+				var obj = JSON.parse(s_lastinfo)
+
+				//标签赋值
+				document.getElementById("site-top-where").innerText = obj.cityname;
+				document.getElementById("site-top-ws").innerText = obj.ws
+				document.getElementById("site-top-wd").innerText = obj.wd
+				time = obj.fctime
+				years = time.slice(0, 4)
+				months = time.slice(4, 6)
+				day = time.slice(6, 8)
+				let date = new Date()
+				let dateDay = date.getDay()
+				var cweek = getChineseWeek(dateDay)
+				time = years + '/' + months + '/' + day + '  ' + cweek
+				document.getElementById("top-right-time").innerText = time
+
+
+				document.getElementById("site-top-date").innerText = '今天'
+
+				document.getElementById("specific-temp").innerText = obj.temp
+				document.getElementById("specific-wd").innerText = obj.wd
+				document.getElementById("specific-ws").innerText = obj.ws
+				document.getElementById("specific-cloud").innerText = obj.weather
+
+			}
+		})
+	});
+
+	//未来7天的温度
+	$(".submit").click(function () {
+		var city = $(".city").val()
+		$.ajax({
+			url: "http://localhost:5000/weather",
+			data: {
+				city,
+				city
+			},
+			dataType: 'json',
+			type: "GET",
+			success: function (data) {
+				console.log(data)
+				keys = [];
+				max_hot = [];
+				lowest_hot = [];
+
+				for (var it in data) {
+					keys.push(it)
+				}
+				for (var it in data) {
+					var temp = data[it]
+					var top = temp.split(',')[0]
+					var bottom = temp.split(',')[1]
+					var reg = RegExp(/℃/)
+					if (temp.match(reg) != null) {
+						if (top.length > 2) {
+							max_hot.push(top.slice(0, 2))
+						} else {
+							max_hot.push(top.slice(0, 1))
+						}
+						lowest_hot.push(bottom)
+					} else {
+						max_hot.push(top)
+						lowest_hot.push(bottom)
+					}
+				}
+				days = keys
+				max_hots = max_hot
+				lowests_hot = lowest_hot
+				seven_temp()
+			},
+			error(data) {
+				alert('查询的城市太远啦')
+			}
+		})
+	})
+
+	//今日温度
+	$(".submit").click(function () {
+		var city = $(".city").val()
+		console.log(city)
+		$.ajax({
+			url: "http://localhost:5000/s_weather",
+			data: {
+				city,
+				city
+			},
+			dataType: 'json',
+			type: "GET",
+			success: function (data) {
+				s_partinfo = data.split("};var alarm")[0]
+				s_lastinfo = s_partinfo.split('"weatherinfo":')[1]
+
+				var obj = JSON.parse(s_lastinfo)
+				console.log(obj)
+
+				//标签赋值
+				document.getElementById("site-top-where").innerText = obj.cityname;
+				document.getElementById("site-top-ws").innerText = obj.ws
+				document.getElementById("site-top-wd").innerText = obj.wd
+				time = obj.fctime
+				years = time.slice(0, 4)
+				months = time.slice(4, 6)
+				day = time.slice(6, 8)
+				let date = new Date()
+				let dateDay = date.getDay()
+				var cweek = getChineseWeek(dateDay)
+				time = years + '/' + months + '/' + day + '  ' + cweek
+				document.getElementById("top-right-time").innerText = time
+
+				document.getElementById("specific-temp").innerText = obj.temp
+				document.getElementById("specific-wd").innerText = obj.wd
+				document.getElementById("specific-ws").innerText = obj.ws
+				document.getElementById("specific-cloud").innerText = obj.weather
+
+			}
+		})
+	})
+
+
+	// 温度图表
+	function seven_temp() {
+		console.log(days)
+		console.log(max_hots)
+		console.log(lowests_hot)
+		var option = {
+			title: {
+				text: '未来一周最低 最高气温变化',
+				textStyle: {
+					color: 'white'
+				}
+			},
+			tooltip: {
+				trigger: 'axis'
+			},
+			legend: {
+				data: ['最高气温', '最低气温'],
+				textStyle: {
+					color: 'white'
+				}
+			},
+			toolbox: {
+				show: true,
+				feature: {
+					dataZoom: {
+						yAxisIndex: 'none'
+					},
+					dataView: {
+						readOnly: false
+					},
+					magicType: {
+						type: ['line', 'bar']
+					},
+					restore: {},
+					saveAsImage: {}
+				},
+			},
+			xAxis: {
+				type: 'category',
+				boundaryGap: false,
+				data: days,
+				axisLabel: {
+					show: true,
+					textStyle: {
+						color: 'white'
+					}
+				}
+
+			},
+			yAxis: {
+				type: 'value',
+				axisLabel: {
+					formatter: '{value} °C',
+					textStyle: {
+						color: 'white'
+					}
+				}
+			},
+			series: [{
+					name: '最高气温',
+					type: 'line',
+					data: max_hots,
+					markPoint: {
+						data: [{
+								type: 'max',
+								name: '最大值'
+							},
+							{
+								type: 'min',
+								name: '最小值'
+							}
+						]
+					},
+					itemStyle: {
+						normal: {
+							color: '#fc3a20', //折点颜色
+							lineStyle: {
+								color: '#ff4b27' //折线颜色
+							}
+						}
+					},
+					markLine: {
+						data: [{
+							type: 'average',
+							name: '平均值'
+						}]
+					}
+				},
+				{
+					name: '最低气温',
+					type: 'line',
+					data: lowests_hot,
+					markPoint: {
+						data: [{
+							name: '周最低',
+							value: -2,
+							xAxis: 1,
+							yAxis: -1.5
+						}]
+					},
+					itemStyle: {
+						normal: {
+							color: '#25fc5b', //折点颜色
+							lineStyle: {
+								color: '#21ff6b' //折线颜色
+							}
+						}
+					},
+					markLine: {
+						data: [{
+								type: 'average',
+								name: '平均值'
+							},
+							[{
+								symbol: 'none',
+								x: '90%',
+								yAxis: 'max'
+							}, {
+								symbol: 'circle',
+								label: {
+									position: 'start',
+									formatter: '平均值'
+								},
+								type: 'max',
+								name: '最高点'
+							}]
+						]
+					}
+				},
+			]
+		};
+		//使用刚指定的配置项和数据显示图表
+		option && myChart.setOption(option);
+	}
+
+    //top导航 鼠标触碰事件
+    function change_background_color(x){
+    	x.style.backgroundColor='#59f042';
+    }
+    function normal_background_color(x){
+    	x.style.backgroundColor='#1a1a1a';
+    }
+</script>
+
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+       <meta charset="utf-8">
+       <title></title>
+       <script src="../js/echarts.min.js"></script>
+       <script src="../js/jquery-3.4.1.min.js"></script>
+	   <script src="../js/bootstrap.min.js" rel="stylesheet"></script>
+	   
+  </head>
+
+  <body>
+
+     <div id="main" style="width: 600px; height: 400px"></div>
+     <table>
+
+     <tr>
+               <td>城市名称</td>
+               <td>
+                    <input type="text" placeholder="中文" class="city" />
+               </td>
+     </tr>
+
+     <tr>
+          <td align="center">
+              <button class="submit">查找</button>
+          </td>
+     </tr>
+
+     </table>
+     <script type="text/javascript">
+          // 基于准备好的dom，初始化echarts实例
+          var myChart = echarts.init(document.getElementById('main'));
+
+          var keys = new Array()
+          var max_hot = new Array()
+          var lowest_hot = new Array()
+             
+			 var  day1 = '1'
+             var  day2 = '2'
+             var  day3 = '3'
+             var  day4 = '4'
+             var  day5 = '5'
+             var  day6 = '6'
+             var  day7 = '7'
+             
+			 var  hot1 = '1'
+             var  hot2 = '2'
+             var  hot3 = '3'
+             var  hot4 = '4'
+             var  hot5 = '5'
+             var  hot6 = '6'
+             var  hot7 = '7'
+
+
+          let days = [day1,day2,day3,day4,day5,day6,day7]
+          let max_hots =[hot1,hot2,hot3,hot4,hot5,hot6,hot7]
+
+          $(".submit").click(function(){
+            var city = $(".city").val()
+            $.ajax({
+               url:"http://localhost:5000/weather",
+               data:{city,city},
+               dataType:'json',
+               type:"GET",
+               success:function(data){
+                  console.log(data)
+
+                  for(var it in data){
+                       keys.push(it)
+                  }
+                  for(var it in data){
+                       var temp = data[it]
+                       console.log(temp)
+                       max_hot.push(temp.slice(0,2))
+                       lowest_hot.push(temp.slice(3,5))
+                  }
+
+                  for(let i = 0; i < days.length;i++){
+                       for(let j = i; j < keys.length; j++){
+                             days[i] = keys[j]
+                             max_hots[i] = max_hot[j]
+                             break;
+                       }
+                       console.log(days[i])
+                  }
+                text()
+               }
+            })
+          })
+
+          // 指定图标的配置项
+          function text(){
+			  var option = {
+				  title: {
+					  text: '7日天气预报'
+				  },
+				  tooltip: {},
+				  legend: {
+					  data:['sale']
+				  },
+				  xAxis:{
+					  data:[days[0],days[1],days[2],days[3],days[4],days[5],days[6]]
+				  },
+				  yAxis:{},
+				  series:[{
+					  name: '销量',
+					  type: 'bar',
+					  data: [max_hots[0],max_hots[1],max_hots[2],max_hots[3],max_hots[4],max_hots[5],max_hots[6]]
+				  }]
+			  }
+			  //使用刚指定的配置项和数据显示图表
+			  myChart.setOption(option);
+          }
+</script>
+
+  </body>
+
+</html>
